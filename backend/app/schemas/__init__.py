@@ -27,6 +27,14 @@ from app.schemas.benchmark import (
     SuiteResultItem,
     SuiteStatus,
 )
+from app.schemas.ml import (
+    FeatureVector,
+    OptimizationObjective,
+    RecommendationRequest,
+    RecommendationResponse,
+    ModelStatusResponse,
+    InfluencingFeature,
+)
 
 __all__ = [
     "ProjectCreate",
@@ -50,4 +58,10 @@ __all__ = [
     "BenchmarkSuiteResponse",
     "SuiteResultItem",
     "SuiteStatus",
+    "FeatureVector",
+    "OptimizationObjective",
+    "RecommendationRequest",
+    "RecommendationResponse",
+    "ModelStatusResponse",
+    "InfluencingFeature",
 ]

@@ -3,6 +3,7 @@ from app.models.project import Project
 from app.models.source_file import SourceFile
 from app.models.compilation import Compilation
 from app.models.benchmark import BenchmarkSuite, BenchmarkRun, BenchmarkSuiteResult
+from app.models.recommendation import OptimizationRecommendation
 
 __all__ = [
     "Base",
@@ -12,4 +13,5 @@ __all__ = [
     "BenchmarkSuite",
     "BenchmarkRun",
     "BenchmarkSuiteResult",
+    "OptimizationRecommendation",
 ]

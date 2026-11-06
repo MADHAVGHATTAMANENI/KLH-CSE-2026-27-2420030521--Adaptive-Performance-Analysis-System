@@ -1,0 +1,48 @@
+{
+  "model_version": "v1.0.0-rf100",
+  "training_samples": 22,
+  "test_samples": 6,
+  "accuracy": 0.8333,
+  "f1_macro": 0.8222,
+  "confusion_matrix": [
+    [
+      1,
+      0,
+      0
+    ],
+    [
+      1,
+      2,
+      0
+    ],
+    [
+      0,
+      0,
+      2
+    ]
+  ],
+  "labels": [
+    "-O1",
+    "-O2",
+    "-O3"
+  ],
+  "feature_importances": {
+    "function_count": 0.1479,
+    "lines_of_code": 0.1415,
+    "loop_count": 0.1259,
+    "max_loop_nesting_depth": 0.1147,
+    "array_subscript_ops": 0.1112,
+    "arithmetic_to_branch_ratio": 0.1012,
+    "branch_count": 0.0732,
+    "float_arithmetic_ops": 0.0699,
+    "integer_arithmetic_ops": 0.0666,
+    "cyclomatic_complexity": 0.0381,
+    "bitwise_ops": 0.0098,
+    "pointer_dereferences": 0.0,
+    "recursive_call_count": 0.0,
+    "memory_allocation_ops": 0.0,
+    "math_library_calls": 0.0,
+    "global_variable_count": 0.0
+  },
+  "training_duration_ms": 69.69
+}
