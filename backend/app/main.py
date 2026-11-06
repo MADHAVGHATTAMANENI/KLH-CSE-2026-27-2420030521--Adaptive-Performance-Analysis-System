@@ -66,3 +66,4 @@ def create_application() -> FastAPI:
 
 
 app = create_application()
+

@@ -68,3 +68,4 @@ async def test_source_files_api_crud(client: AsyncClient):
         json={"filename": "test.c", "content": "int x;"},
     )
     assert bad_res.status_code == 404
+

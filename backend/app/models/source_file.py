@@ -39,3 +39,4 @@ class SourceFile(Base, UUIDMixin, TimestampMixin):
 
     def __repr__(self) -> str:
         return f"<SourceFile(id='{self.id}', filename='{self.filename}', size={self.size_bytes}B)>"
+

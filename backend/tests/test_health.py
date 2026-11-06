@@ -18,3 +18,4 @@ async def test_health_check_endpoint(client: AsyncClient):
     assert data["database"]["status"] == "CONNECTED"
     assert "compiler" in data
     assert "docker" in data
+

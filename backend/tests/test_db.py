@@ -62,3 +62,4 @@ async def test_project_crud_lifecycle(client: AsyncClient, test_db_session: Asyn
     # 7. Verify File Was Deleted via Cascade
     res = await client.get(f"/api/v1/files/{file_id}")
     assert res.status_code == 404
+

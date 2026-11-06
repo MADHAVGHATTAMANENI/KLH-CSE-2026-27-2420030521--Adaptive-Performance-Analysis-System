@@ -32,3 +32,4 @@ class UUIDMixin:
         default=lambda: str(uuid.uuid4()),
         nullable=False,
     )
+

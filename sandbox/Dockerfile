@@ -21,3 +21,4 @@ RUN gcc -O2 -Wall -Wextra /sandbox/runner.c -o /usr/local/bin/compilerx-runner \
 
 USER compilerx
 ENTRYPOINT ["/usr/local/bin/compilerx-runner"]
+

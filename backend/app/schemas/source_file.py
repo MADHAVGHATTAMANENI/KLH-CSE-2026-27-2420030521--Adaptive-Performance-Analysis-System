@@ -36,3 +36,4 @@ class SourceFileResponse(BaseModel):
 
 class SourceFileDetailResponse(SourceFileResponse):
     content: str
+

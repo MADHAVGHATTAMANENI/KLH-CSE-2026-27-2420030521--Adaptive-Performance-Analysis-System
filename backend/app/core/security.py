@@ -69,3 +69,4 @@ def validate_and_sanitize_flags(
         sanitized_flags.append(cleaned_flag)
 
     return sanitized_flags
+

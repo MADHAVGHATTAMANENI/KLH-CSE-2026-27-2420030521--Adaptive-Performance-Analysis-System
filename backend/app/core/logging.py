@@ -43,3 +43,4 @@ def configure_logging(environment: str = "development") -> None:
 
 
 logger = structlog.get_logger("compilerx")
+

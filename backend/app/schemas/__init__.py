@@ -11,6 +11,22 @@ from app.schemas.source_file import (
     SourceFileResponse,
     SourceFileDetailResponse,
 )
+from app.schemas.compilation import (
+    CompileRequest,
+    CompileResponse,
+    CompilationHistoryItem,
+    OptimizationLevel,
+)
+from app.schemas.benchmark import (
+    BenchmarkRunRequest,
+    BenchmarkRunResponse,
+    BenchmarkRunItem,
+    BenchmarkStatistics,
+    BenchmarkSuiteRequest,
+    BenchmarkSuiteResponse,
+    SuiteResultItem,
+    SuiteStatus,
+)
 
 __all__ = [
     "ProjectCreate",
@@ -22,4 +38,16 @@ __all__ = [
     "SourceFileUpdate",
     "SourceFileResponse",
     "SourceFileDetailResponse",
+    "CompileRequest",
+    "CompileResponse",
+    "CompilationHistoryItem",
+    "OptimizationLevel",
+    "BenchmarkRunRequest",
+    "BenchmarkRunResponse",
+    "BenchmarkRunItem",
+    "BenchmarkStatistics",
+    "BenchmarkSuiteRequest",
+    "BenchmarkSuiteResponse",
+    "SuiteResultItem",
+    "SuiteStatus",
 ]

@@ -135,3 +135,4 @@ async def delete_source_file(
 
     await db.delete(source_file)
     return None
+

@@ -37,3 +37,4 @@ class ProjectListResponse(BaseModel):
     total: int
     page: int
     page_size: int
+

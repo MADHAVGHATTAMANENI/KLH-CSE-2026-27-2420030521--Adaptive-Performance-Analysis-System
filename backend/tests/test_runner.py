@@ -47,3 +47,4 @@ def test_runner_captures_non_zero_exit_code():
     )
     data = json.loads(res.stdout.strip())
     assert data["exit_code"] == 0 or data["exit_code"] != 0
+

@@ -69,3 +69,4 @@ async def get_health(db: AsyncSession = Depends(get_db)):
             "socket": settings.DOCKER_SOCKET,
         },
     }
+
