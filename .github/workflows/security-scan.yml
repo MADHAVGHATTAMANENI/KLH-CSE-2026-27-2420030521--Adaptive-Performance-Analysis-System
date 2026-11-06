@@ -1,0 +1,35 @@
+name: CompilerX Security Operations (SecOps)
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  schedule:
+    - cron: '0 0 * * 1' # Weekly security audit
+
+jobs:
+  trivy-vulnerability-scan:
+    name: Container & Dependency Vulnerability Scan (CO3)
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code Repository
+        uses: actions/checkout@v4
+
+      - name: Build Sandbox Docker Image for Scanning
+        run: |
+          docker build -t compilerx-sandbox:latest ./sandbox
+
+      - name: Run Trivy Vulnerability Scanner on Sandbox
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: 'compilerx-sandbox:latest'
+          format: 'table'
+          exit-code: '0' # Non-blocking in CI reporting
+          severity: 'CRITICAL,HIGH'
+
+      - name: Python Dependency Security Audit
+        run: |
+          python -m pip install pip-audit
+          pip-audit -r backend/requirements.txt || true

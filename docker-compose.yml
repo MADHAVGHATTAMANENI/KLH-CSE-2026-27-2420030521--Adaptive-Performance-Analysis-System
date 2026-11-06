@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+  # 1. Application Backend (FastAPI + Python 3.12)
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: compilerx-backend
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    environment:
+      - ENVIRONMENT=production
+      - DATABASE_URL=sqlite+aiosqlite:////app/data/compilerx.db
+      - DOCKER_SOCKET=unix:///var/run/docker.sock
+      - SANDBOX_IMAGE=compilerx-sandbox:latest
+    volumes:
+      - backend-data:/app/data
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - compilerx-net
+
+  # 2. Ephemeral Sandbox Image Builder
+  sandbox:
+    build:
+      context: ./sandbox
+      dockerfile: Dockerfile
+    image: compilerx-sandbox:latest
+    container_name: compilerx-sandbox-base
+    # Base image for on-demand execution, does not run as a permanent daemon
+
+volumes:
+  backend-data:
+
+networks:
+  compilerx-net:
+    driver: bridge
