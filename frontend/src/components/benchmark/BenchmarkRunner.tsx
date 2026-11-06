@@ -159,3 +159,4 @@ export const BenchmarkRunner: React.FC<BenchmarkRunnerProps> = ({ onSuiteComplet
     </div>
   );
 };
+

@@ -5,12 +5,19 @@ import { getSystemHealth } from '../../services/api';
 import { SystemHealth } from '../../types';
 
 export const Navbar: React.FC = () => {
-  const { projects, activeProject, selectProject, createProject } = useProjectStore();
+  const { projects, activeProject, fetchProjects, selectProject, createProject } = useProjectStore();
   const [health, setHealth] = useState<SystemHealth | null>(null);
   const [showNewModal, setShowNewModal] = useState(false);
   const [newProjectName, setNewProjectName] = useState('');
 
   useEffect(() => {
+    fetchProjects().then(async () => {
+      const state = useProjectStore.getState();
+      if (state.projects.length === 0) {
+        await createProject('CompilerX Sandbox', 'Default workspace for C/C++ benchmarks');
+      }
+    }).catch(() => {});
+
     getSystemHealth().then(setHealth).catch(() => {});
     const interval = setInterval(() => {
       getSystemHealth().then(setHealth).catch(() => {});
@@ -121,3 +128,4 @@ export const Navbar: React.FC = () => {
     </header>
   );
 };
+

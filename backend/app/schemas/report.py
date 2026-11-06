@@ -24,3 +24,4 @@ class BenchmarkReportData(BaseModel):
     results: List[Dict[str, Any]]
     recommendation: Optional[Dict[str, Any]] = None
     analytics_summary: Dict[str, Any]
+

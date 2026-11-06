@@ -40,3 +40,4 @@ class FileAnalyticsOverview(BaseModel):
     best_speedup_observed: float
     best_level: Optional[str]
     recent_regression_detected: bool
+

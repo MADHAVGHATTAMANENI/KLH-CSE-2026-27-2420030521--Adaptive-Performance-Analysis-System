@@ -97,9 +97,18 @@ int main() {
 
 export const Sidebar: React.FC = () => {
   const { files, activeFileId, setActiveFileId, createFile, deleteFile } = useProjectStore();
-  const { loadFile } = useEditorStore();
+  const { loadFile, fileId } = useEditorStore();
   const [newFileName, setNewFileName] = useState('');
   const [isCreating, setIsCreating] = useState(false);
+
+  // Auto-load first file when project files load if none active
+  React.useEffect(() => {
+    if (files.length > 0 && (!activeFileId || !fileId)) {
+      const targetId = activeFileId || files[0].id;
+      setActiveFileId(targetId);
+      loadFile(targetId);
+    }
+  }, [files, activeFileId, fileId, setActiveFileId, loadFile]);
 
   const handleSelectFile = (fileId: string) => {
     setActiveFileId(fileId);
@@ -212,3 +221,4 @@ export const Sidebar: React.FC = () => {
     </aside>
   );
 };
+

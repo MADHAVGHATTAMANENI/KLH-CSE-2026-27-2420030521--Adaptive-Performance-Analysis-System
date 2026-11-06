@@ -7,6 +7,7 @@ from app.core.exceptions import CompilerXException, compilerx_exception_handler
 from app.core.logging import configure_logging, logger
 from app.db.session import engine
 from app.models.base import Base
+import app.models  # noqa: F401 - ensure all models are registered on Base.metadata
 
 
 @asynccontextmanager

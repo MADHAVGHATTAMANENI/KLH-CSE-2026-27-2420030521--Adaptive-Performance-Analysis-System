@@ -254,3 +254,4 @@ export const MLRecommendationCard: React.FC<MLRecommendationCardProps> = ({ onAp
     </div>
   );
 };
+

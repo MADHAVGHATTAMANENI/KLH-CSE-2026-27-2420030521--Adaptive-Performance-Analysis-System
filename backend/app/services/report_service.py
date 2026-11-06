@@ -103,8 +103,12 @@ class ReportService:
 
         rec_data: Optional[Dict[str, Any]] = None
         if recommendation:
-            features = json.loads(recommendation.features_extracted_json)
-            top_features = json.loads(recommendation.top_influencing_features_json)
+            features = recommendation.features_extracted
+            if isinstance(features, str):
+                try:
+                    features = json.loads(features)
+                except Exception:
+                    features = {}
             rec_data = {
                 "id": recommendation.id,
                 "recommended_level": recommendation.recommended_level,
@@ -112,7 +116,7 @@ class ReportService:
                 "objective": recommendation.objective,
                 "explanation": recommendation.explanation,
                 "features_extracted": features,
-                "top_influencing_features": top_features,
+                "top_influencing_features": [],
                 "created_at": recommendation.created_at.isoformat() if recommendation.created_at else None,
             }
 
