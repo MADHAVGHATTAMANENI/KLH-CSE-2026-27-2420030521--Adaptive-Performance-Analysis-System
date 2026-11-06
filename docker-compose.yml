@@ -30,10 +30,23 @@ services:
     container_name: compilerx-sandbox-base
     # Base image for on-demand execution, does not run as a permanent daemon
 
+  # 3. Application Frontend (Vite + React SPA via Nginx)
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: compilerx-frontend
+    restart: unless-stopped
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+    networks:
+      - compilerx-net
+
 volumes:
   backend-data:
 
 networks:
   compilerx-net:
     driver: bridge
-

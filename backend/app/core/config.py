@@ -29,6 +29,7 @@ class Settings(BaseSettings):
     # Execution & Sandbox Constraints
     DOCKER_SOCKET: str = "unix:///var/run/docker.sock"
     SANDBOX_IMAGE: str = "compilerx-sandbox:latest"
+    CLANG_PATH: str = "clang"
     MAX_FILE_SIZE_BYTES: int = 1_048_576  # 1 MB
     COMPILATION_TIMEOUT_SEC: float = 15.0
     BENCHMARK_TIMEOUT_SEC: float = 10.0

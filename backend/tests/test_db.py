@@ -1,9 +1,6 @@
 import pytest
 from httpx import AsyncClient
-from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
-from app.models.project import Project
-from app.models.source_file import SourceFile
 
 
 @pytest.mark.asyncio

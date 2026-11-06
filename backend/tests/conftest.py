@@ -10,6 +10,7 @@ from sqlalchemy.ext.asyncio import (
 from app.api.deps import get_db
 from app.main import app
 from app.models.base import Base
+from app.models import project, source_file, compilation, benchmark, recommendation  # noqa: F401
 
 
 TEST_DATABASE_URL = "sqlite+aiosqlite:///:memory:"
