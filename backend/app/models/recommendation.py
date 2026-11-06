@@ -1,5 +1,5 @@
 from typing import Optional
-from sqlalchemy import Boolean, Float, ForeignKey, JSON, String, Text
+from sqlalchemy import Boolean, Float, ForeignKey, Integer, JSON, String, Text
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from app.models.base import Base, TimestampMixin, UUIDMixin
 
@@ -18,6 +18,11 @@ class OptimizationRecommendation(Base, UUIDMixin, TimestampMixin):
         nullable=False,
         index=True,
     )
+    training_record_id: Mapped[Optional[str]] = mapped_column(
+        String(36),
+        ForeignKey("ml_training_records.id", ondelete="SET NULL"),
+        nullable=True,
+    )
     recommended_level: Mapped[str] = mapped_column(String(4), nullable=False)
     confidence_score: Mapped[float] = mapped_column(Float, nullable=False)
     objective: Mapped[str] = mapped_column(String(20), nullable=False, default="SPEED")
@@ -33,4 +38,27 @@ class OptimizationRecommendation(Base, UUIDMixin, TimestampMixin):
         return (
             f"<OptimizationRecommendation(id='{self.id}', rec='{self.recommended_level}', "
             f"confidence={self.confidence_score:.2f})>"
+        )
+
+
+class MLTrainingRecord(Base, UUIDMixin, TimestampMixin):
+    """
+    ML Training Lifecycle Record (CO4)
+    Persists evaluation metrics, accuracy, confusion matrix, and feature importances.
+    """
+    __tablename__ = "ml_training_records"
+
+    model_version: Mapped[str] = mapped_column(String(50), nullable=False)
+    training_samples: Mapped[int] = mapped_column(Integer, nullable=False)
+    accuracy: Mapped[float] = mapped_column(Float, nullable=False)
+    f1_macro: Mapped[float] = mapped_column(Float, nullable=False)
+    confusion_matrix: Mapped[list] = mapped_column(JSON, nullable=False)
+    per_class_metrics: Mapped[dict] = mapped_column(JSON, nullable=False, default=dict)
+    feature_importance: Mapped[dict] = mapped_column(JSON, nullable=False, default=dict)
+    training_duration_ms: Mapped[float] = mapped_column(Float, nullable=False)
+
+    def __repr__(self) -> str:
+        return (
+            f"<MLTrainingRecord(version='{self.model_version}', "
+            f"accuracy={self.accuracy * 100:.1f}%, samples={self.training_samples})>"
         )

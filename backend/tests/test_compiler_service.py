@@ -105,3 +105,4 @@ async def test_compiler_flag_whitelist_rejection(client: AsyncClient):
     )
     assert bad_res.status_code == 422
     assert "not permitted" in bad_res.json()["message"]
+

@@ -118,3 +118,4 @@ async def test_full_multi_level_benchmark_suite(client: AsyncClient):
     poll_res = await client.get(f"/api/v1/benchmarks/suite/{suite_id}")
     assert poll_res.status_code == 200
     assert poll_res.json()["status"] == "COMPLETED"
+

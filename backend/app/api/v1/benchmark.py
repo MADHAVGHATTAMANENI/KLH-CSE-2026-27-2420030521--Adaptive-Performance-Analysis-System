@@ -93,3 +93,4 @@ async def get_suite_status(
         completed_at=suite.completed_at,
         results=result_items,
     )
+

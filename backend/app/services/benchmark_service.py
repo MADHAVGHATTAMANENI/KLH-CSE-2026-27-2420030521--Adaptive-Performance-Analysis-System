@@ -351,3 +351,4 @@ class BenchmarkService:
             await self.db.flush()
             logger.error("benchmark_suite_failed", suite_id=suite.id, error=str(e))
             raise
+

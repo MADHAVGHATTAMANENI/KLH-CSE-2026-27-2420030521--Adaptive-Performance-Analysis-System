@@ -68,3 +68,4 @@ async def get_file_compilations(
     )
     result = await db.execute(stmt)
     return result.scalars().all()
+

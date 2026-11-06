@@ -57,5 +57,7 @@ async def get_model_status():
     response_model=ModelStatusResponse,
     summary="Trigger model retraining on benchmark dataset (CO4)",
 )
-async def retrain_model():
-    return MLService.retrain_model()
+async def retrain_model(db: AsyncSession = Depends(get_db)):
+    ml_service = MLService(db)
+    return await ml_service.retrain_model()
+

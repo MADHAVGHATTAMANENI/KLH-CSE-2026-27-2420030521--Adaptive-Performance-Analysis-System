@@ -113,3 +113,4 @@ async def test_ml_model_status_and_retrain(client: AsyncClient):
     retrain_res = await client.post("/api/v1/ml/model/retrain")
     assert retrain_res.status_code == 200
     assert retrain_res.json()["accuracy"] > 0.0
+

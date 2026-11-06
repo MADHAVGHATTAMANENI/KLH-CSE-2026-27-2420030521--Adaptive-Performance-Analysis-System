@@ -9,7 +9,7 @@ from app.core.exceptions import EntityNotFoundError
 from app.core.logging import logger
 from app.ml.features import CodeFeatureExtractor
 from app.ml.train import METRICS_FILE, MODEL_FILE, train_recommendation_model
-from app.models.recommendation import OptimizationRecommendation
+from app.models.recommendation import OptimizationRecommendation, MLTrainingRecord
 from app.models.source_file import SourceFile
 from app.schemas.ml import (
     FeatureVector,
@@ -179,9 +179,23 @@ class MLService:
 
         return ModelStatusResponse(**data)
 
-    @classmethod
-    def retrain_model(cls) -> ModelStatusResponse:
-        """Triggers model retraining and reloads in-memory model artifact."""
+    async def retrain_model(self) -> ModelStatusResponse:
+        """Triggers model retraining, reloads in-memory model artifact, and persists lifecycle record."""
         metrics = train_recommendation_model()
-        cls._model = joblib.load(MODEL_FILE)
+        MLService._model = joblib.load(MODEL_FILE)
+
+        # Persist ML lifecycle training record in database
+        record = MLTrainingRecord(
+            model_version=metrics["model_version"],
+            training_samples=metrics["training_samples"],
+            accuracy=metrics["accuracy"],
+            f1_macro=metrics["f1_macro"],
+            confusion_matrix=metrics["confusion_matrix"],
+            per_class_metrics=metrics.get("per_class_metrics", {}),
+            feature_importance=metrics.get("feature_importances", {}),
+            training_duration_ms=metrics["training_duration_ms"],
+        )
+        self.db.add(record)
+        await self.db.flush()
+
         return ModelStatusResponse(**metrics)
