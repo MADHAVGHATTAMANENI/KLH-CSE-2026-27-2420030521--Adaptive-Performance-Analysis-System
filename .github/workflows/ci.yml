@@ -21,6 +21,11 @@ jobs:
           python-version: "3.12"
           cache: "pip"
 
+      - name: Install System Dependencies (Clang & Build Essentials)
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends clang llvm build-essential
+
       - name: Install Dependencies
         run: |
           python -m pip install --upgrade pip
@@ -33,8 +38,10 @@ jobs:
 
       - name: Run Backend Unit & Integration Tests (CO1, CO2)
         working-directory: backend
+        env:
+          PYTHONPATH: .
         run: |
-          pytest tests/ -v --cov=app --cov-report=term-missing --cov-fail-under=70
+          python -m pytest tests/ -v --cov=app --cov-report=term-missing --cov-fail-under=70
 
   sandbox-image-build:
     name: Sandbox Container Image Verification
