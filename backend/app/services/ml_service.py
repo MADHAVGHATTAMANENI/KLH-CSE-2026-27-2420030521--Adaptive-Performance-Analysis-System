@@ -1,6 +1,6 @@
 import json
 import os
-from typing import Dict
+from typing import Any, Dict
 import joblib
 import numpy as np
 from sqlalchemy import select
@@ -26,7 +26,7 @@ class MLService:
     generates explainable rationales, and manages model retraining.
     """
 
-    _model = None
+    _model: Any = None
 
     def __init__(self, db: AsyncSession):
         self.db = db

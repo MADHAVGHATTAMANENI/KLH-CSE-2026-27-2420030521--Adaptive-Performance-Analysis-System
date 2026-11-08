@@ -39,12 +39,23 @@ def test_runner_executes_simple_binary():
 
 def test_runner_captures_non_zero_exit_code():
     """Verifies that runner correctly records non-zero exit codes."""
+    exit_src = "/tmp/test_exit_42.c"
+    exit_bin = "/tmp/test_exit_42"
+    with open(exit_src, "w") as f:
+        f.write("int main() { return 42; }\n")
+    subprocess.run(["clang", exit_src, "-o", exit_bin], check=True)
+
     res = subprocess.run(
-        [RUNNER_BIN, "/bin/sh", "-c 'exit 42'"],
+        [RUNNER_BIN, exit_bin],
         capture_output=True,
         text=True,
         timeout=5,
     )
+    if os.path.exists(exit_src):
+        os.remove(exit_src)
+    if os.path.exists(exit_bin):
+        os.remove(exit_bin)
+
     data = json.loads(res.stdout.strip())
-    assert data["exit_code"] == 0 or data["exit_code"] != 0
+    assert data["exit_code"] == 42
 

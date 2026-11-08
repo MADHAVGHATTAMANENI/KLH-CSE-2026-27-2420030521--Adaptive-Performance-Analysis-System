@@ -143,9 +143,9 @@ class CodeFeatureExtractor:
     @staticmethod
     def _count_global_vars(code: str) -> int:
         """Counts variable declarations located outside function bodies."""
-        outside_braces = []
+        outside_braces: List[str] = []
         depth = 0
-        current_chunk = []
+        current_chunk: List[str] = []
         for char in code:
             if char == "{":
                 if depth == 0 and current_chunk:
